@@ -1,3 +1,9 @@
 # Compiled source #
 ###################
 *.class
+
+# Settings
+.idea/workspace.xml
+
+# If this becomes an issue:
+# /.idea/tasks.xml
