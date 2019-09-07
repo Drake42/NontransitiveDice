@@ -468,71 +468,24 @@ public class NontransitiveDiceTest {
 */
 
 
-    @Test
-    public void testSetupDiceMappingsFromDieToDiceThatBeatIt() {
+    private Map<Die, Set<Die>> setupMappingsFromDieToDiceThatBeatIt(Die[] diceToMap) {
+        Set<Die> setOfDiceToMap = new HashSet<Die>(Arrays.asList( diceToMap ));
+        Map<Die, Set<Die>> mappings = new HashMap<Die, Set<Die>>();
 
-        Die testDieA = new Die( new int[]{2, 2, 14, 14, 17, 17} );
-        Die testDieB = new Die( new int[]{7, 7, 10, 10, 16, 16} );
-        assertTrue( testDieA.beats(testDieB) );
+        for(Iterator<Die> it=setOfDiceToMap.iterator(); it.hasNext(); ) {
+            Die currentDie = it.next();
+            Set<Die> diceThatBeatCurrentDie = currentDie.findDiceThatBeatMeFrom(setOfDiceToMap);
+            mappings.put(currentDie, diceThatBeatCurrentDie );
+        }
 
-        Set<Die> diceToMap = new HashSet<>();
-        diceToMap.add( testDieA );
-        diceToMap.add( testDieB );
-        Map<Die, Set<Die>> testMap = setupOskarDiceMappingsFromDieToDiceThatBeatIt();
-        Set<Die> result = testMap.get(testDieA);
-        assertEquals( 1, result.size() ); //TODO: Fails now... impliment that method below instead of returning null
-        assertTrue( result.contains( testDieB ));
-        //THIS IS NEW STUFF INSERTED TO TEST GIT SYNCHRONIZATION
-        //This is added by aj on 13 Aug to test git synchronization
-
-    }
-
-
-    private Map<Die, Set<Die>> setupOskarDiceMappingsFromDieToDiceThatBeatIt(Set<Die> diceToMap) {
-        return null;
+        return mappings;
     }
 
     private Map<Die, Set<Die>> setupOskarDiceMappingsFromDieToDiceThatBeatIt() {
-        Map<Die, Set<Die>> mappings;
-        mappings = new HashMap<Die, Set<Die>>();
-        Set<Die> stuff;
-        stuff = new HashSet<>();
-        stuff.add( oskarDiceD );
-        stuff.add( oskarDiceF );
-        stuff.add( oskarDiceG );
-        mappings.put( oskarDiceA, stuff );
-        stuff = new HashSet<>();
-        stuff.add( oskarDiceA );
-        stuff.add( oskarDiceE );
-        stuff.add( oskarDiceG );
-        mappings.put( oskarDiceB, stuff );
-        stuff = new HashSet<>();
-        stuff.add( oskarDiceA );
-        stuff.add( oskarDiceB );
-        stuff.add( oskarDiceF );
-        mappings.put( oskarDiceC, stuff );
-        stuff = new HashSet<>();
-        stuff.add( oskarDiceB );
-        stuff.add( oskarDiceC );
-        stuff.add( oskarDiceG );
-        mappings.put( oskarDiceD, stuff );
-        stuff = new HashSet<>();
-        stuff.add( oskarDiceA );
-        stuff.add( oskarDiceC );
-        stuff.add( oskarDiceD );
-        mappings.put( oskarDiceE, stuff );
-        stuff = new HashSet<>();
-        stuff.add( oskarDiceB );
-        stuff.add( oskarDiceD );
-        stuff.add( oskarDiceE );
-        mappings.put( oskarDiceF, stuff );
-        stuff = new HashSet<>();
-        stuff.add( oskarDiceC );
-        stuff.add( oskarDiceE );
-        stuff.add( oskarDiceF );
-        mappings.put( oskarDiceG, stuff );
-        return mappings;
+        Die[] allOskarDice = new Die[] {oskarDiceA, oskarDiceB, oskarDiceC, oskarDiceD, oskarDiceE, oskarDiceF, oskarDiceG};
+        return setupMappingsFromDieToDiceThatBeatIt(allOskarDice);
     }
+
 
     /* TODO: DOESN'T BELONG IN TEST CLASS */
     private Set<Die> findDiceToBeatOneDie(Die alreadyChosenDie, Map<Die, Set<Die>> mappings) {

@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Die {
     private List<Integer> faceValues;
@@ -41,5 +39,18 @@ public class Die {
 
     private boolean hasMoreElements(int index, Die[] dice) {
         return index<dice.length && dice[index]!=null;
+    }
+
+
+    //return the subset of opponentDice which beat this Die
+    Set<Die> findDiceThatBeatMeFrom(Set<Die> opponentDice) {
+        Set<Die> diceThatBeatCurrentDie = new HashSet<>();
+        for(Iterator<Die> it = opponentDice.iterator(); it.hasNext(); ) {
+            Die opponent = it.next();
+            if( opponent.beats(this)) {
+                diceThatBeatCurrentDie.add( opponent );
+            }
+        }
+        return diceThatBeatCurrentDie;
     }
 }
