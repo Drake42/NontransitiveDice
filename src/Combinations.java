@@ -16,6 +16,7 @@ public class Combinations {
         return results;
     }
 
+    //The algorithm here is taken from https://theproductiveprogrammer.blog/GeneratingCombinations.java.php
     static List<List<Die>> GenerateCombinationsOf(List<Die> elements) {
         List<List<Die>> results = new ArrayList<>();
         int numElements = elements.size();
