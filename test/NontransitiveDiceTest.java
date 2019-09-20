@@ -125,30 +125,11 @@ public class NontransitiveDiceTest {
 
     /* TODO: The following method doesn't belong in the test class. */
 
-    //TODO: This is the method in which we are working to realize Goal #1 (see comment at top)
-    //TODO: Although this method takes a parameter for numPlayers, the logic doesn't yet use it and is hard coded to two players
-    //  to do that, first modify the logic to remove the hard coding to two players, while keeping tests working
-    //  then test with three players
-    // TODO: DO THIS SECOND ^^^
-    // TODO: AND THE THIRD THING TO DO IS PROBABLY TO REVISIT ALL THE COMMENTS ABOUT METHODS NOT BELONGING IN TEST CLASS
-
-    /* Thinking about how to make that work...
-    //Given an arbitrary number of players, we'll end up nesting the loops below as deeply as needed...
-    //Each player iterates across all the dice, choosing one that no prior player has chosen,
-    // and verifying their choice can win
-
-    //So now our outer loop must iterate across the num players, and we'll keep a list or array that holds
-    // each players iterator across the set of dice
-
-    //Except now that we've built infrastructure for a set based approach, maybe all those loops aren't needed.
-    */
-
-    // TODO: current implementation iterates & checks all... shift to new mappings based stuff by calling...
-    //  ...either   private Set<Die> findDiceToBeatAll(Set<Die> alreadyChosenDice, Map<Die, Set<Die>> mappings)
-    //  ...or       private Set<Die> findDiceToBeatOneDie(Die alreadyChosenDie, Map<Die, Set<Die>> mappings)
-    // TODO: DO THIS FIRST ^^^ (noted on 6 Sep 2019) ARJ START HERE
-    // TODO: When beginning to change this implementation to use the new mappings stuff, be aware that we already
-    //  successfully made the same change in the method isSetOfDiceNontransitiveForTwoPlayers down below.
+    //This method has been updated to realize Goal #1 (see comment at top)
+    //However, we haven't yet tested for anything larger than two players. So...
+    //TODO: write some tests to verify that "isSetOfDiceNontransitiveForNumPlayers" works for more than two players
+    //TODO: Examine & fix any gaps in where we're using Lists (but naming them sets), where we're using Arrays, where we're using Sets...
+    //TODO: Then, TO REVISIT ALL THE COMMENTS ABOUT METHODS NOT BELONGING IN TEST CLASS
 
     public void testWithLessDiceThanPlayers() {
         List<Die> setOfDice;
