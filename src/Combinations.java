@@ -1,11 +1,14 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Combinations {
 
-    static List<List<Die>> GenerateCombinationsOf(int numElementsInResult, List<Die> elements) {
-        List<List<Die>> results = GenerateCombinationsOf(elements);
+
+    public static List<List<Die>> generateCombinationsOf(int numCombinations, Set<Die> diceToMap) {
+        return generateCombinationsOf(numCombinations - 1, new ArrayList<>(diceToMap));
+    }
+
+    static List<List<Die>> generateCombinationsOf(int numElementsInResult, List<Die> elements) {
+        List<List<Die>> results = generateCombinationsOf(elements);
         Iterator<List<Die>> it = results.iterator();
         while( it.hasNext() ) {
             List<Die> combination = it.next();
@@ -16,8 +19,10 @@ public class Combinations {
         return results;
     }
 
+    //TODO: can we decouple the algorithm here from List, change the parameter to Collection...
+    // ... and eliminate the helper method above that's currently needed to call it with a Set
     //The algorithm here is taken from https://theproductiveprogrammer.blog/GeneratingCombinations.java.php
-    static List<List<Die>> GenerateCombinationsOf(List<Die> elements) {
+    static List<List<Die>> generateCombinationsOf(List<Die> elements) {
         List<List<Die>> results = new ArrayList<>();
         int numElements = elements.size();
         for(int num=0; num<(1<<numElements); num++) { //iterate from 0 to the max number of combinations, which is 2^numElements
@@ -32,4 +37,6 @@ public class Combinations {
         }
         return results;
     }
+
+
 }

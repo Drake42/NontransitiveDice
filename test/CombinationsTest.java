@@ -22,7 +22,7 @@ public class CombinationsTest {
     public void testCombinationsOfZero() {
 
         List<List<Die>> results;
-        results = Combinations.GenerateCombinationsOf(elements);
+        results = Combinations.generateCombinationsOf(elements);
 
         assertNotNull(results);
         assertEquals(1, results.size() );
@@ -30,7 +30,7 @@ public class CombinationsTest {
         assertNotNull(result0);
         assertEquals( 0, result0.size() );
 
-        results = Combinations.GenerateCombinationsOf(2, elements);
+        results = Combinations.generateCombinationsOf(2, elements);
         assertNotNull(results);
         assertEquals(0, results.size() );
 
@@ -41,7 +41,7 @@ public class CombinationsTest {
 
         elements.add(d1);
 
-        List<List<Die>> results = Combinations.GenerateCombinationsOf(elements);
+        List<List<Die>> results = Combinations.generateCombinationsOf(elements);
 
         assertNotNull(results);
         assertEquals(2, results.size() );
@@ -54,7 +54,7 @@ public class CombinationsTest {
         assertEquals( 1, result1.size() );
         assertEquals( d1, result1.get(0) );
 
-        results = Combinations.GenerateCombinationsOf(2, elements);
+        results = Combinations.generateCombinationsOf(2, elements);
         assertNotNull(results);
         assertEquals(0, results.size() );
     }
@@ -64,12 +64,12 @@ public class CombinationsTest {
         elements.add(d1);
         elements.add(d2);
 
-        List<List<Die>> results = Combinations.GenerateCombinationsOf(elements);
+        List<List<Die>> results = Combinations.generateCombinationsOf(elements);
 
         assertNotNull(results);
         assertEquals(4, results.size());
 
-        results = Combinations.GenerateCombinationsOf(2, elements);
+        results = Combinations.generateCombinationsOf(2, elements);
         assertNotNull(results);
         assertEquals(1, results.size() );
 
@@ -81,12 +81,12 @@ public class CombinationsTest {
         elements.add(d2);
         elements.add(d3);
 
-        List<List<Die>> results = Combinations.GenerateCombinationsOf(elements);
+        List<List<Die>> results = Combinations.generateCombinationsOf(elements);
 
         assertNotNull(results);
         assertEquals(8, results.size());
 
-        results = Combinations.GenerateCombinationsOf(2, elements);
+        results = Combinations.generateCombinationsOf(2, elements);
         assertNotNull(results);
         assertEquals(3, results.size() );
         //if we wanted to verify, we'd expect results to contain these combinations: (d1,d2) (d2,d3) (d1,d3)

@@ -5,21 +5,20 @@ public class Die {
 
     public Die(int[] faceValuesArray ) {
         this.faceValues = new ArrayList<Integer>( faceValuesArray.length );
-        for( int i=0; i<faceValuesArray.length; i++ ) {
-            this.faceValues.add( faceValuesArray[i] );
+        for (int value : faceValuesArray) {
+            this.faceValues.add(value);
         }
     }
 
     public boolean beats(Die die1) {
-        if( die1 == this ) return false;
+        if( die1 == this )
+            return false;
+
         int wins = 0;
         int nonWins = 0;
-        Iterator<Integer> it = faceValues.iterator();
-        while (it.hasNext()) {
-            int myValue = it.next();
-            Iterator<Integer> other = die1.faceValues.iterator();
-            while (other.hasNext()) {
-                int otherValue = other.next();
+
+        for (int myValue : faceValues) {
+            for (int otherValue : die1.faceValues) {
                 if (myValue > otherValue) wins++;
                 else nonWins++;
             }
@@ -45,10 +44,9 @@ public class Die {
     //return the subset of opponentDice which beat this Die
     Set<Die> findDiceThatBeatMeFrom(Set<Die> opponentDice) {
         Set<Die> diceThatBeatCurrentDie = new HashSet<>();
-        for(Iterator<Die> it = opponentDice.iterator(); it.hasNext(); ) {
-            Die opponent = it.next();
-            if( opponent.beats(this)) {
-                diceThatBeatCurrentDie.add( opponent );
+        for (Die opponent : opponentDice) {
+            if (opponent.beats(this)) {
+                diceThatBeatCurrentDie.add(opponent);
             }
         }
         return diceThatBeatCurrentDie;
