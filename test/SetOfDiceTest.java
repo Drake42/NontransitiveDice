@@ -44,12 +44,17 @@ public class NontransitiveDiceTest {
     @Test
     public void testNontransitiveTwoPlayerSimpleSet() {
 
+
+
         Set<Die> diceToMap = new HashSet<>(3);
         diceToMap .add(new Die( new int[]{0, 0, 0} ));
         diceToMap .add(new Die( new int[]{1, 1, -2} ));
         diceToMap .add(new Die( new int[]{-1, -1, 2} ));
 
-        assertTrue(isSetOfDiceNontransitiveForNumPlayers(diceToMap, 2));
+        //TODO
+        SetOfDice bar = new SetOfDice();
+
+        assertTrue(bar.isSetOfDiceNontransitiveForNumPlayers(diceToMap, 2));
     }
 
     @Test
@@ -65,20 +70,28 @@ public class NontransitiveDiceTest {
                 new Die( new int[]{1, 6, 8} ),
                 new Die( new int[]{3, 5, 7} ) );
 
+        //TODO: did someone want to actually assert something here? Otherwise delete?
+
     }
 
     private void testNontransitiveForTheseThreeDice(Die d1, Die d2, Die d3) {
+
 
         Set<Die> diceToMap = new HashSet<>(3);
         diceToMap .add(d1);
         diceToMap .add(d2);
         diceToMap .add(d3);
 
-        assertTrue(isSetOfDiceNontransitiveForNumPlayers(diceToMap, 2));
+        //TODO
+        SetOfDice bar = new SetOfDice();
+
+        assertTrue(bar.isSetOfDiceNontransitiveForNumPlayers(diceToMap, 2));
     }
 
     @Test
     public void testNotNontransitiveSimpleSet() {
+
+
         Die d1, d2, d3;
         d1 = new Die( new int[]{0, 0} );
         d2 = new Die( new int[]{1, 1} );
@@ -88,41 +101,11 @@ public class NontransitiveDiceTest {
         diceToMap .add(d1);
         diceToMap .add(d2);
         diceToMap .add(d3);
-        assertFalse(isSetOfDiceNontransitiveForNumPlayers(diceToMap, 2));
-    }
 
-    @Test
-    public void testBeats() {
-        Die die1 = new Die( new int[]{1} );
-        Die die2 = new Die( new int[]{2} );
+        //TODO
+        SetOfDice bar = new SetOfDice();
 
-        assertTrue( die2.beats( die1 ));
-        assertFalse( die1.beats( die2 ));
-
-        assertFalse( die1.beats( die1 ));
-        assertFalse( die1.beats( new Die( new int[]{1} ) ));
-
-
-        Die die11 = new Die( new int[]{1, 1} );
-        assertTrue( die2.beats(die11) );
-
-
-        Die die21 = new Die( new int[]{2, 1} );
-        assertFalse( die21.beats( die11 ));
-
-        Die die12 = new Die( new int[]{1, 2} );
-        assertFalse( die21.beats( die12 ));
-
-
-        Die die221 = new Die( new int[]{2, 2, 1} );
-        assertTrue( die221.beats( die11 ));
-
-        Die die211 = new Die( new int[]{2, 1, 1} );
-        assertFalse( die221.beats( die211 ));
-
-        Die die111 = new Die( new int[]{1, 1, 1} );
-        assertTrue( die221.beats( die111) );
-
+        assertFalse(bar.isSetOfDiceNontransitiveForNumPlayers(diceToMap, 2));
     }
 
     //Per wikipedia article on nontransitive dice the following set of dice, discovered by Oskar,
@@ -143,30 +126,31 @@ public class NontransitiveDiceTest {
     private static Die oskarDiceG = new Die( new int[]{4, 4, 11, 11, 18, 18} );
     private static final Die[] allOskarDice = new Die[] {oskarDiceA, oskarDiceB, oskarDiceC, oskarDiceD, oskarDiceE, oskarDiceF, oskarDiceG};
 
+    //TODO: who calls this method and why
     private Map<Die, Set<Die>> setupOskarDiceMappingsFromDieToDiceThatBeatIt() {
-        Set<Die> setOfDiceToMap = new HashSet<>(Arrays.asList(allOskarDice));
-        return setupMappingsFromDieToDiceThatBeatIt(setOfDiceToMap);
-    }
 
-    @Test
-    public void testBeatsAllOfThese() {
-        assertTrue( oskarDiceA.beatsAllOfThese(new Die[]{oskarDiceB, oskarDiceC, oskarDiceE}));
-        assertFalse( oskarDiceA.beatsAllOfThese(new Die[]{oskarDiceB, oskarDiceC, oskarDiceD}));
-        assertFalse( oskarDiceA.beatsAllOfThese(new Die[]{oskarDiceD, oskarDiceC, oskarDiceE}));
+        Set<Die> setOfDiceToMap = new HashSet<>(Arrays.asList(allOskarDice));
+
+        //TODO
+        SetOfDice bar = new SetOfDice();
+
+        return bar.setupMappingsFromDieToDiceThatBeatIt(setOfDiceToMap);
     }
 
     @Test
     public void testFindDiceToBeatOneDie() {
         Map<Die, Set<Die>> mapDieToDiceThatBeatIt = setupOskarDiceMappingsFromDieToDiceThatBeatIt();
 
+        //TODO
+        SetOfDice bar = new SetOfDice();
         Set<Die> result;
-        result = findDiceToBeatOneDie(oskarDiceA, mapDieToDiceThatBeatIt);
+        result = bar.findDiceToBeatOneDie(oskarDiceA, mapDieToDiceThatBeatIt);
         assertTrue( result.contains( oskarDiceD ));
         assertTrue( result.contains( oskarDiceF ));
         assertTrue( result.contains( oskarDiceG ));
         assertEquals(result.size(), 3);
 
-        result = findDiceToBeatOneDie(oskarDiceD, mapDieToDiceThatBeatIt);
+        result = bar.findDiceToBeatOneDie(oskarDiceD, mapDieToDiceThatBeatIt);
         assertTrue( result.contains( oskarDiceB ));
         assertTrue( result.contains( oskarDiceC ));
         assertTrue( result.contains( oskarDiceG ));
@@ -177,91 +161,24 @@ public class NontransitiveDiceTest {
     public void testFindDiceToBeatAll() {
         Map<Die, Set<Die>> mappings = setupOskarDiceMappingsFromDieToDiceThatBeatIt();
 
+        //TODO
+        SetOfDice bar = new SetOfDice();
         Set<Die> result;
 
         Set<Die> alreadyChosenDice;
         alreadyChosenDice = new HashSet<>();
         alreadyChosenDice.add( oskarDiceA );
         alreadyChosenDice.add( oskarDiceD );
-        result = findDiceToBeatAll( alreadyChosenDice, mappings );
+        result = bar.findDiceToBeatAll( alreadyChosenDice, mappings);
         assertEquals(result.size(), 1);
         assertTrue( result.contains( oskarDiceG ));
 
         alreadyChosenDice = new HashSet<>();
         alreadyChosenDice.add( oskarDiceA );
         alreadyChosenDice.add( oskarDiceB );
-        result = findDiceToBeatAll( alreadyChosenDice, mappings );
+        result = bar.findDiceToBeatAll( alreadyChosenDice, mappings);
         assertEquals(result.size(), 1);
         assertTrue( result.contains( oskarDiceG ));
-    }
-
-
-
-    /* ========================================================================== */
-    // TODO: The following methods definitely don't belong in the test class
-    /* ========================================================================== */
-    // ARJ: ^^^ as of 25 Sep, this ^^^ is the second next step
-
-
-
-    private Map<Die, Set<Die>> setupMappingsFromDieToDiceThatBeatIt(Set<Die> diceToMap) {
-        Map<Die, Set<Die>> mappings = new HashMap<>();
-
-        for (Die currentDie : diceToMap) {
-            Set<Die> diceThatBeatCurrentDie = currentDie.findDiceThatBeatMeFrom(diceToMap);
-            mappings.put(currentDie, diceThatBeatCurrentDie);
-        }
-
-        return mappings;
-    }
-
-    private Map<Die, Set<Die>> setupMappingsFor(Set<Die> diceToMap) {
-        Map<Die, Set<Die>> mappings;
-        mappings = setupMappingsFromDieToDiceThatBeatIt(diceToMap);
-        return mappings;
-    }
-
-    //This method has been updated to realize Goal #1 (see comment at top)
-    //However, we haven't yet tested for anything larger than two players. So...
-    //TODO: write some tests to verify that "isSetOfDiceNontransitiveForNumPlayers" works for more than two players
-    // ARJ: ^^^ as of 25 Sep, this ^^^ is the first next step
-
-    //for N players, Nontransitive means...
-    // for any possible set of (n-1) dice, there exists at least one die that beats all of them.
-    private boolean isSetOfDiceNontransitiveForNumPlayers(Set<Die> diceToMap, int numPlayers) {
-        Map<Die, Set<Die>> mappings = setupMappingsFor(diceToMap);
-
-        List<List<Die>> allCombinationsOfNMinusOneDice;
-        allCombinationsOfNMinusOneDice = Combinations.generateCombinationsOf(numPlayers, diceToMap);
-
-        for (List<Die> combination : allCombinationsOfNMinusOneDice) {
-            Set<Die> chosenDice = new HashSet<>(combination);
-            Set<Die> beatsCurrent = findDiceToBeatAll(chosenDice, mappings);
-            if (beatsCurrent == null || beatsCurrent.size() < 1) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private Set<Die> findDiceToBeatAll(Set<Die> alreadyChosenDice, Map<Die, Set<Die>> mappings) {
-        Set<Die> result = new HashSet<>();
-        Iterator<Die> it = alreadyChosenDice.iterator();
-        if( it.hasNext() ) {
-            Die oneChosenDie = it.next();
-            Set<Die> diceThatBeatTheOne = findDiceToBeatOneDie( oneChosenDie, mappings);
-            result = new HashSet<>(diceThatBeatTheOne);
-            while( it.hasNext() ) {
-                Die nextChosenDie = it.next();
-                Set<Die> diceThatBeatTheNextChosen = findDiceToBeatOneDie( nextChosenDie, mappings);
-                result.retainAll( diceThatBeatTheNextChosen );
-            }
-        }
-        return result;
-    }
-
-    private Set<Die> findDiceToBeatOneDie(Die alreadyChosenDie, Map<Die, Set<Die>> mappings) {
-        return mappings.get( alreadyChosenDie );
     }
 
 }

@@ -4,6 +4,8 @@
 
 # Settings
 .idea/workspace.xml
+.idea/uiDesigner.xml
+.idea/misc.xml
 
 # If this becomes an issue:
 # /.idea/tasks.xml

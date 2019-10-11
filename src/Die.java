@@ -26,21 +26,6 @@ public class Die {
         return wins > nonWins;
     }
 
-    public boolean beatsAllOfThese(Die[] dice) {
-        int index=0;
-        while(hasMoreElements(index, dice)) {
-            if (!this.beats(dice[index]))
-                return false;
-            index++;
-        }
-        return true;
-    }
-
-    private boolean hasMoreElements(int index, Die[] dice) {
-        return index<dice.length && dice[index]!=null;
-    }
-
-
     //return the subset of opponentDice which beat this Die
     Set<Die> findDiceThatBeatMeFrom(Set<Die> opponentDice) {
         Set<Die> diceThatBeatCurrentDie = new HashSet<>();
