@@ -39,22 +39,17 @@ Goal 2: generate nontransitive die sets, for a given
  */
 
 
-public class NontransitiveDiceTest {
+public class SetOfDiceTest {
 
     @Test
     public void testNontransitiveTwoPlayerSimpleSet() {
-
-
-
         Set<Die> diceToMap = new HashSet<>(3);
         diceToMap .add(new Die( new int[]{0, 0, 0} ));
         diceToMap .add(new Die( new int[]{1, 1, -2} ));
         diceToMap .add(new Die( new int[]{-1, -1, 2} ));
 
-        //TODO
-        SetOfDice bar = new SetOfDice();
-
-        assertTrue(bar.isSetOfDiceNontransitiveForNumPlayers(diceToMap, 2));
+        SetOfDice dice = new SetOfDice( diceToMap );
+        assertTrue(dice.isSetOfDiceNontransitiveForNumPlayers(2));
     }
 
     @Test
@@ -75,23 +70,17 @@ public class NontransitiveDiceTest {
     }
 
     private void testNontransitiveForTheseThreeDice(Die d1, Die d2, Die d3) {
-
-
         Set<Die> diceToMap = new HashSet<>(3);
         diceToMap .add(d1);
         diceToMap .add(d2);
         diceToMap .add(d3);
 
-        //TODO
-        SetOfDice bar = new SetOfDice();
-
-        assertTrue(bar.isSetOfDiceNontransitiveForNumPlayers(diceToMap, 2));
+        SetOfDice dice = new SetOfDice(diceToMap);
+        assertTrue(dice.isSetOfDiceNontransitiveForNumPlayers(2));
     }
 
     @Test
     public void testNotNontransitiveSimpleSet() {
-
-
         Die d1, d2, d3;
         d1 = new Die( new int[]{0, 0} );
         d2 = new Die( new int[]{1, 1} );
@@ -102,10 +91,8 @@ public class NontransitiveDiceTest {
         diceToMap .add(d2);
         diceToMap .add(d3);
 
-        //TODO
-        SetOfDice bar = new SetOfDice();
-
-        assertFalse(bar.isSetOfDiceNontransitiveForNumPlayers(diceToMap, 2));
+        SetOfDice dice = new SetOfDice(diceToMap);
+        assertFalse(dice.isSetOfDiceNontransitiveForNumPlayers(2));
     }
 
     //Per wikipedia article on nontransitive dice the following set of dice, discovered by Oskar,
@@ -126,31 +113,18 @@ public class NontransitiveDiceTest {
     private static Die oskarDiceG = new Die( new int[]{4, 4, 11, 11, 18, 18} );
     private static final Die[] allOskarDice = new Die[] {oskarDiceA, oskarDiceB, oskarDiceC, oskarDiceD, oskarDiceE, oskarDiceF, oskarDiceG};
 
-    //TODO: who calls this method and why
-    private Map<Die, Set<Die>> setupOskarDiceMappingsFromDieToDiceThatBeatIt() {
-
-        Set<Die> setOfDiceToMap = new HashSet<>(Arrays.asList(allOskarDice));
-
-        //TODO
-        SetOfDice bar = new SetOfDice();
-
-        return bar.setupMappingsFromDieToDiceThatBeatIt(setOfDiceToMap);
-    }
-
     @Test
     public void testFindDiceToBeatOneDie() {
-        Map<Die, Set<Die>> mapDieToDiceThatBeatIt = setupOskarDiceMappingsFromDieToDiceThatBeatIt();
+        SetOfDice dice = new SetOfDice(new HashSet<>(Arrays.asList(allOskarDice)));
 
-        //TODO
-        SetOfDice bar = new SetOfDice();
         Set<Die> result;
-        result = bar.findDiceToBeatOneDie(oskarDiceA, mapDieToDiceThatBeatIt);
+        result = dice.findDiceToBeatOneDie(oskarDiceA);
         assertTrue( result.contains( oskarDiceD ));
         assertTrue( result.contains( oskarDiceF ));
         assertTrue( result.contains( oskarDiceG ));
         assertEquals(result.size(), 3);
 
-        result = bar.findDiceToBeatOneDie(oskarDiceD, mapDieToDiceThatBeatIt);
+        result = dice.findDiceToBeatOneDie(oskarDiceD);
         assertTrue( result.contains( oskarDiceB ));
         assertTrue( result.contains( oskarDiceC ));
         assertTrue( result.contains( oskarDiceG ));
@@ -159,24 +133,21 @@ public class NontransitiveDiceTest {
 
     @Test
     public void testFindDiceToBeatAll() {
-        Map<Die, Set<Die>> mappings = setupOskarDiceMappingsFromDieToDiceThatBeatIt();
-
-        //TODO
-        SetOfDice bar = new SetOfDice();
+        SetOfDice dice = new SetOfDice(new HashSet<>(Arrays.asList(allOskarDice)));
         Set<Die> result;
 
         Set<Die> alreadyChosenDice;
         alreadyChosenDice = new HashSet<>();
         alreadyChosenDice.add( oskarDiceA );
         alreadyChosenDice.add( oskarDiceD );
-        result = bar.findDiceToBeatAll( alreadyChosenDice, mappings);
+        result = dice.findDiceToBeatAll( alreadyChosenDice);
         assertEquals(result.size(), 1);
         assertTrue( result.contains( oskarDiceG ));
 
         alreadyChosenDice = new HashSet<>();
         alreadyChosenDice.add( oskarDiceA );
         alreadyChosenDice.add( oskarDiceB );
-        result = bar.findDiceToBeatAll( alreadyChosenDice, mappings);
+        result = dice.findDiceToBeatAll( alreadyChosenDice);
         assertEquals(result.size(), 1);
         assertTrue( result.contains( oskarDiceG ));
     }
