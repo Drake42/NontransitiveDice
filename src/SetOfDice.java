@@ -12,7 +12,7 @@ public class SetOfDice {
         mappings = setupMappingsFromDieToDiceThatBeatIt(this.dice);
     }
 
-    Map<Die, Set<Die>> setupMappingsFromDieToDiceThatBeatIt(@NotNull Set<Die> diceToMap) {
+    private Map<Die, Set<Die>> setupMappingsFromDieToDiceThatBeatIt(@NotNull Set<Die> diceToMap) {
         Map<Die, Set<Die>> mappings = new HashMap<>();
 
         for (Die currentDie : diceToMap) {
@@ -23,6 +23,7 @@ public class SetOfDice {
         return mappings;
     }
 
+    //Currently tested up through 3 players.
     public boolean isSetOfDiceNontransitiveForNumPlayers(int numPlayers) {
         List<List<Die>> allCombinationsOfNMinusOneDice;
         allCombinationsOfNMinusOneDice = Combinations.generateCombinationsOf(numPlayers, dice);
@@ -37,12 +38,7 @@ public class SetOfDice {
         return true;
     }
 
-    //This method has been updated to realize Goal #1 (see comment at top)
-    //However, we haven't yet tested for anything larger than two players. So...
-    //TODO: write some tests to verify that "isSetOfDiceNontransitiveForNumPlayers" works for more than two players
-    // ARJ: ^^^ as of 25 Sep, this ^^^ is the first next step
-
-    public Set<Die> findDiceToBeatAll(Set<Die> alreadyChosenDice) {
+    Set<Die> findDiceToBeatAll(Set<Die> alreadyChosenDice) {
         Set<Die> result = new HashSet<>();
         Iterator<Die> it = alreadyChosenDice.iterator();
         if( it.hasNext() ) {
@@ -58,7 +54,7 @@ public class SetOfDice {
         return result;
     }
 
-    public Set<Die> findDiceToBeatOneDie(Die alreadyChosenDie) {
+    Set<Die> findDiceToBeatOneDie(Die alreadyChosenDie) {
         return this.mappings.get(alreadyChosenDie);
     }
 

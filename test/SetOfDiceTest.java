@@ -42,39 +42,25 @@ Goal 2: generate nontransitive die sets, for a given
 public class SetOfDiceTest {
 
     @Test
-    public void testNontransitiveTwoPlayerSimpleSet() {
-        Set<Die> diceToMap = new HashSet<>(3);
-        diceToMap .add(new Die( new int[]{0, 0, 0} ));
-        diceToMap .add(new Die( new int[]{1, 1, -2} ));
-        diceToMap .add(new Die( new int[]{-1, -1, 2} ));
-
-        SetOfDice dice = new SetOfDice( diceToMap );
-        assertTrue(dice.isSetOfDiceNontransitiveForNumPlayers(2));
-    }
-
-    @Test
     public void testSeveralNontransitiveSimpleSets() {
 
-        testNontransitiveForTheseThreeDice(
+        testNontransitiveForOnePlayerWithTheseThreeDice(
                 new Die( new int[]{0, 0, 0} ),
                 new Die( new int[]{1, 1, -2} ),
                 new Die( new int[]{-1, -1, 2} ) );
 
-        testNontransitiveForTheseThreeDice(
+        testNontransitiveForOnePlayerWithTheseThreeDice(
                 new Die( new int[]{2, 4, 9} ),
                 new Die( new int[]{1, 6, 8} ),
                 new Die( new int[]{3, 5, 7} ) );
 
-        //TODO: did someone want to actually assert something here? Otherwise delete?
-
     }
 
-    private void testNontransitiveForTheseThreeDice(Die d1, Die d2, Die d3) {
+    private void testNontransitiveForOnePlayerWithTheseThreeDice(Die d1, Die d2, Die d3) {
         Set<Die> diceToMap = new HashSet<>(3);
         diceToMap .add(d1);
         diceToMap .add(d2);
         diceToMap .add(d3);
-
         SetOfDice dice = new SetOfDice(diceToMap);
         assertTrue(dice.isSetOfDiceNontransitiveForNumPlayers(2));
     }
@@ -112,6 +98,12 @@ public class SetOfDiceTest {
     private static Die oskarDiceF = new Die( new int[]{6, 6, 8, 8, 19, 19} );
     private static Die oskarDiceG = new Die( new int[]{4, 4, 11, 11, 18, 18} );
     private static final Die[] allOskarDice = new Die[] {oskarDiceA, oskarDiceB, oskarDiceC, oskarDiceD, oskarDiceE, oskarDiceF, oskarDiceG};
+
+    @Test
+    public void testNontransitiveForThreePlayers() {
+        SetOfDice dice = new SetOfDice(new HashSet<>(Arrays.asList(allOskarDice)));
+        assertTrue( dice.isSetOfDiceNontransitiveForNumPlayers(3));
+    }
 
     @Test
     public void testFindDiceToBeatOneDie() {
