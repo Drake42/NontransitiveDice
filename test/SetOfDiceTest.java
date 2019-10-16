@@ -16,20 +16,80 @@ C has sides 3, 5, 7
 It may be relevant, for fairness, that the sum of sides is identical for each die.
 
 Done: Goal 0: determine whether a given set of 3 dice is nontransitive for 2 players
-This was completed with the method (and associated tests and supporting methods)
-    private boolean isSetOfDiceNontransitiveForTwoPlayers(List setOfDice) {
+Done: Goal 1: determine whether a given set of dice is nontransitive, for a given set of dice and number of players
+implemented in method isSetOfDiceNontransitiveForNumPlayers(...)
+we tested this method for two and three players, but not beyond.
 
-TODO: This is the highest level of context for what we're currently working on as of 6 Sep 2019
-NEXT: Goal 1: determine whether a given set of dice is nontransitive, for a given
-        set of dice
-        number of players
-In other words, generalize Goal 0 to work with an arbitrary number of players.
-
+TODO: this is the top level goal as of 15 Oct... smaller details live in other todo items below
 Goal 2: generate nontransitive die sets, for a given
         number of dice
         given number of sides per die
         given total of face values?
         given lower and upper bounds on face values?
+
+//On 15 Oct, Nathan and Ashley are thinking about approaches to Goal #2
+
+        //set arbitrary bounds
+        Generate set of dice such that:
+        1. 3 dice which are nontransitive for 2 players
+        2. each die has 6 sides
+        3. the sum of face values for all sides of any die is 0
+        4. the range of allowed values for any die is whole numbers from -25 to 25
+          (or, we could restrict five sides to that range, and allow for the sixth side, any whole number to satistfy #3
+
+        //assert... because set 1 is non-transitive for 2 players, set 2 is also non-transitive for 2 players, where
+        Set 1 is:
+        A has sides 2, 4, 9 / -3, -1, 4
+        B has sides 1, 6, 8 / -4, 1, 3
+        C has sides 3, 5, 7 / -2, 0, 2
+        Set 2 is set 1, with -5 added to each face value, resulting in the sum of face values being 0 on each die
+        A has sides -3, -1, 4
+        B has sides -4, 1, 3
+        C has sides -2, 0, 2
+        //yes, we actually validated set 2 in the code below...
+        //however, we didn't prove that our logic is sound for all such transformations. We're relying on intuition for now.
+
+        //set arbitrary bounds
+        Generate set of dice such that:
+        1. 3 dice which are nontransitive for 2 players
+        2. each die has 6 sides
+        3. the sum of face values for all sides of any die is 0
+        4. the range of allowed values for any die is whole numbers from -25 to 25
+          (or, we could restrict five sides to that range, and allow for the sixth side, any whole number to satistfy #3
+
+        //possible Algorithm... for above...
+        A. Generate the set of all possible dice for parameters( sides, sum of face values, range of allowed values)
+            A1. In a loop through all possible values for each side, assign every possible combination of face values to 5 sides
+            A2. Compute the value for side 6 needed to make the sum of face values match that specified.
+        B. Generate the mappings of which dice beat which other dice
+        C. Given those mappings, finding a set non-transitive for N dice is simply a graph traversal problem within the mappings
+
+        //because this is a lot of possibilities...
+        Hand solve a very simple case like...
+        1. 3 dice nontransitive for 2 players
+        2. each die has 3 sides
+        3. the sum of face values for all sides of any die is 0
+        4. the range of allowed values for any die is -4 to 4
+        How many possibilities does this involve?
+        9 possibilities per face * 3 faces = 27 discrete dice we can generate,
+        but some of these are effectively duplicates - (1,2,3) and (3,2,1) for example
+        and some of them drop out when we enforce sum of face values
+        but since we haven't computed those yet, let's take the worst case and assume there are 27 discrete dice
+        Now, how many combinations of 3 dice can we extract from 27 discrete dice?
+        //the answer is = n! / r! * (n - r)!, where n is total items, and r is number of items being chosen at a time.
+        Which is 2925
+        So, in step B, we get to create mappings for up to 2925 dice. I'm glad the 27 will actually be smaller!
+
+
+
+
+
+
+        TODO: next step...
+        solve the immediately above very simple case by hand...
+        build physical artifacts showing the resulting set of dice, at each step of A/B/C above.
+        use the physical artifact(s) for the mappings (B) to understand and generalize how we traverse in step C
+
 
  Goal 3: generate nontransitive die sets, for a given
         number of players, which will ultimately determine the required number of dice
@@ -53,6 +113,12 @@ public class SetOfDiceTest {
                 new Die( new int[]{2, 4, 9} ),
                 new Die( new int[]{1, 6, 8} ),
                 new Die( new int[]{3, 5, 7} ) );
+
+        testNontransitiveForOnePlayerWithTheseThreeDice(
+                new Die( new int[]{-3, -1, 4} ),
+                new Die( new int[]{-4, 1, 3} ),
+                new Die( new int[]{-2, 0, 2} ) );
+
 
     }
 
