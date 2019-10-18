@@ -1,0 +1,88 @@
+
+
+        //because this is a lot of possibilities...
+        Hand solve a very simple case like...
+        1. 3 dice nontransitive for 2 players
+        2. each die has 3 sides
+        3. the sum of face values for all sides of any die is 0
+        4. the range of allowed values for any die is -4 to 4
+        How many possibilities does this involve?
+        9 possibilities per face * 3 faces = 27 discrete dice we can generate,
+        but some of these are effectively duplicates - (1,2,3) and (3,2,1) for example
+        and some of them drop out when we enforce sum of face values
+        but since we haven't computed those yet, let's take the worst case and assume there are 27 discrete dice
+        Now, how many combinations of 3 dice can we extract from 27 discrete dice?
+        //the answer is = n! / r! * (n - r)!, where n is total items, and r is number of items being chosen at a time.
+        Which is 2925
+        So, in step B, we get to create mappings for up to 2925 dice. I'm glad the 27 will actually be smaller!
+
+
+
+
+        //possible Algorithm... for above...
+        A. Generate the set of all possible dice for parameters( sides=3, sum of face values=0, range of allowed values = -4 to 4)
+            A1. In a loop through all possible values for each side, assign every possible combination of face values to 5 sides
+            A2. Compute the value for side 6 needed to make the sum of face values match that specified.
+        B. Generate the mappings of which dice beat which other dice
+        C. Given those mappings, finding a set non-transitive for N dice is simply a graph traversal problem within the mappings
+
+
+Look at google docs spreadsheet here: https://docs.google.com/spreadsheets/d/1VSwHnrMz5Oa-ZO9grq8vIIFW-Haf8TSwCq9Bi6GCo0k/edit#gid=659183100
+
+Die: -4, -4, 8
+Die: -3, -4, 7
+Die: -2, -4, 6
+Die: -1, -4, 5
+Die: 0, -4, 4
+Die: 1, -4, 3
+Die: 2, -4, 2
+Die: 3, -4, 1
+Die: 4, -4, 0
+Die: -4, -3, 7
+Die: -3, -3, 6
+Die: -2, -3, 5
+Die: -1, -3, 4
+Die: 0, -3, 3
+Die: 1, -3, 2
+Die: 2, -3, 1
+Die: 3, -3, 0
+Die: 4, -3, -1
+
+Die: -4, 
+Die: -3, 
+Die: -2, 
+Die: -1, 
+Die: 0, 
+Die: 1, 
+Die: 2, 
+Die: 3, 
+Die: 4, 
+
+
+
+
+
+For 17 items, choosing any 2, the number of combinations is 136
+
+
+
+
+
+
+8
+7
+6
+5
+4
+3
+2
+1
+0
+-1
+-2
+-3
+-4
+-5
+-6
+-7
+-8
