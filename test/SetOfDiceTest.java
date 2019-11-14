@@ -1,8 +1,8 @@
 import org.junit.Test;
 
 import java.util.*;
-
 import static org.junit.Assert.*;
+
 
 
 /*
@@ -28,14 +28,6 @@ Goal 2: generate nontransitive die sets, for a given
         given lower and upper bounds on face values?
 
 //On 15 Oct, Nathan and Ashley are thinking about approaches to Goal #2
-
-        //set arbitrary bounds
-        Generate set of dice such that:
-        1. 3 dice which are nontransitive for 2 players
-        2. each die has 6 sides
-        3. the sum of face values for all sides of any die is 0
-        4. the range of allowed values for any die is whole numbers from -25 to 25
-          (or, we could restrict five sides to that range, and allow for the sixth side, any whole number to satistfy #3
 
         //assert... because set 1 is non-transitive for 2 players, set 2 is also non-transitive for 2 players, where
         Set 1 is:

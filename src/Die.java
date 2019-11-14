@@ -8,6 +8,18 @@ public class Die {
         for (int value : faceValuesArray) {
             this.faceValues.add(value);
         }
+        Collections.sort(faceValues);
+    }
+
+    public String toString() {
+        StringBuffer buf = new StringBuffer();
+        buf.append("Die:[");
+        for (int x:faceValues) {
+            buf.append(x);
+            buf.append(",");
+        }
+        buf.setCharAt(buf.length()-1, ']');
+        return buf.toString();
     }
 
     public boolean beats(Die die1) {
@@ -35,5 +47,18 @@ public class Die {
             }
         }
         return diceThatBeatCurrentDie;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Die die = (Die) o;
+        return faceValues.equals(die.faceValues);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(faceValues);
     }
 }
