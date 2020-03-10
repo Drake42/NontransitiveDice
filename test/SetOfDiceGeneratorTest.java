@@ -59,7 +59,7 @@ public class SetOfDiceGeneratorTest {
 
         for (int[] dieFaceValues : expectedDice ) {
             Die d = new Die( dieFaceValues );
-            assertTrue( "Test written, code not yet written... 'cause this is what to work on next!"+d, generatedSetOfDice.contains( d ));
+            assertTrue( "Test written, **code not yet written** 'cause this is what to work on next!"+d, generatedSetOfDice.contains( d ));
             //TODO: the above assert fails, and will continue to do so until we finish implementing
             // the method SetOfDiceGenerator.generateAllPossibleFaceValueCombinationsFor...
             // per the TODO items in that method
