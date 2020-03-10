@@ -1,4 +1,5 @@
-import org.jetbrains.annotations.NotNull;
+//TODO delete commented thing in following line
+//import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -12,7 +13,8 @@ public class SetOfDice {
         mappings = setupMappingsFromDieToDiceThatBeatIt(this.dice);
     }
 
-    private Map<Die, Set<Die>> setupMappingsFromDieToDiceThatBeatIt(@NotNull Set<Die> diceToMap) {
+    //TODO delete commented thing in following line
+    private Map<Die, Set<Die>> setupMappingsFromDieToDiceThatBeatIt(/*@NotNull*/ Set<Die> diceToMap) {
         Map<Die, Set<Die>> mappings = new HashMap<>();
 
         for (Die currentDie : diceToMap) {
