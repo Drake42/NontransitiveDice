@@ -9,3 +9,7 @@
 
 # If this becomes an issue:
 # /.idea/tasks.xml
+
+# compiled files
+/out/production/NontransitiveDice/
+
