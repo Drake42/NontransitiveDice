@@ -4,7 +4,6 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 
-
 /*
 We require a set of dice, containing at least 3 members
 Each die has at least 3 sides, we're using NUM_SIDES=3 for starters
@@ -200,6 +199,14 @@ public class SetOfDiceTest {
         result = dice.findDiceToBeatAll( alreadyChosenDice);
         assertEquals(result.size(), 1);
         assertTrue( result.contains( oskarDiceG ));
+
+        fail( "Boo!" );
+        //Delete above fail that was put there only to bring you here, then read what's below...
+        // As of 22 May 2020, TODO items exist in these files...
+        //  This one
+        //  SetOfDice.java
+        //  Combinations.java
+
     }
 
 }
