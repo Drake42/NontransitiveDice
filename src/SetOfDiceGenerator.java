@@ -4,33 +4,56 @@ import java.util.Set;
 
 public class SetOfDiceGenerator {
 
-    //A. Generate the set of all possible dice for the given parameters
-    //In a loop through all possible values for each side,
-    //  assign every possible combination of face values to all sides other than one
-    //  compute the value for the final side needed to make the sum of face values match that specified.
+    //An example hand calculation is at https://docs.google.com/spreadsheets/d/1VSwHnrMz5Oa-ZO9grq8vIIFW-Haf8TSwCq9Bi6GCo0k/edit#gid=0.
+    //That example builds a table with the same algorithm we do here
+    //This method returns a set of Dice, containing every possible Die for the given numFaces, and low/high faceValues
+    //Note that one face of each die (last column of table) is not constrained by the low/high faceValues, but by the required faceValueSum
     public static Set<Die> generateAllPossibleFaceValueCombinationsFor(
             int numFaces, int faceValueSum, int faceValueLow, int faceValueHigh) {
 
-        int numPossibleValuesForAllConstrainedFaces= faceValueHigh - faceValueLow + 1;
-        int numConstraintedFaces = numFaces - 1;
-        BigInteger numPossibleValuesForAllConstraintedFaces_big = BigInteger.valueOf(numPossibleValuesForAllConstrainedFaces);
-        int maxNumCombinations = numPossibleValuesForAllConstraintedFaces_big.pow(numConstraintedFaces).intValue();
-        int[][] candidateDice = new int[numFaces][maxNumCombinations];
+        int numTableRows = computeMaxPossibleCombinationsFor(numFaces, faceValueLow, faceValueHigh);
+        int numTableColumns = numFaces;
+        int[][] candidateDiceTable = new int[numTableRows][numTableColumns];
 
-        //fill first first row of table with the low range value
-        //fill next row of table with values incremented by 1 using adder like protocol
-        //repeat until done with table
+        fillFirstRowOfTableWithLowestValueButIgnoreLastColumn(faceValueLow, candidateDiceTable);
+        fillSubsequentRowsOfTableWithPossibleFaceValueCombinationsButIgnoreLastColumn(faceValueLow, faceValueHigh, candidateDiceTable);
+        fillInLastColumnOfTableSoThatFacesSumTo(faceValueSum, candidateDiceTable);
 
-        //fill first row of table, ignoring last column
-        for(int column=0; column<numFaces-1; column++) {
-            candidateDice[column][0] = faceValueLow;
+        Set<Die> result = getSetOfDiceWithoutDuplicates(candidateDiceTable);
+
+        return result;
+    }
+
+    private static int computeMaxPossibleCombinationsFor(int numFaces, int faceValueLow, int faceValueHigh) {
+        int numConstrainedFaces = numFaces - 1;
+        BigInteger numFaceValuesInRange = BigInteger.valueOf(faceValueHigh - faceValueLow + 1);
+        return numFaceValuesInRange.pow(numConstrainedFaces).intValue();
+    }
+
+    private static Set<Die> getSetOfDiceWithoutDuplicates(int[][] candidateDiceTable) {
+        Set<Die> result = new HashSet<>();
+        for(int row=0; row<candidateDiceTable.length; row++) {
+            boolean add = result.add(new Die(candidateDiceTable[row]));
         }
+        return result;
+    }
 
-        //fill all subsequent rows of table, ignoring last column
-        for(int row=1; row<maxNumCombinations; row++) {
+    private static void fillInLastColumnOfTableSoThatFacesSumTo(int faceValueSum, int[][] diceTable) {
+        for(int row=0; row<diceTable.length; row++) {
+            int lastColumn = diceTable[row].length - 1;
+            int sum = 0;
+            for(int column=0; column<lastColumn; column++) {
+                sum += diceTable[row][column];
+            }
+            diceTable[row][lastColumn] = faceValueSum - sum;
+        }
+    }
+
+    private static void fillSubsequentRowsOfTableWithPossibleFaceValueCombinationsButIgnoreLastColumn(int faceValueLow, int faceValueHigh, int[][] diceTable) {
+        for(int row=1; row<diceTable.length; row++) {
             boolean carry = true;
-            for(int column=0; column<numFaces-1; column++) {
-                int valueInRowAbove = candidateDice[column][row-1];
+            for(int column=0; column<diceTable[row].length-1; column++) {
+                int valueInRowAbove = diceTable[row-1][column];
                 int valueInThisRow = valueInRowAbove;
                 if (carry) {
                     valueInThisRow++;
@@ -42,23 +65,14 @@ public class SetOfDiceGenerator {
                 } else {
                     carry = false;
                 }
-                candidateDice[column][row] = valueInThisRow;
+                diceTable[row][column] = valueInThisRow;
             }
         }
+    }
 
-        //TODO: fill in final row of table
-
-
-        Set<Die> result = new HashSet<>();
-
-        //TODO: add each combination from the table to the result set
-
-        //TODO: confirm that adding to the set silently removes duplicates
-
-        //TODO: delete the following two lines
-        Die d = new Die( new int[]{-4,-4,8} );
-        result.add( d );
-
-        return result;
+    private static void fillFirstRowOfTableWithLowestValueButIgnoreLastColumn(int valueToFillIn, int[][] diceTable) {
+        for(int column=0; column<diceTable[0].length-1; column++) {
+            diceTable[0][column] = valueToFillIn;
+        }
     }
 }
