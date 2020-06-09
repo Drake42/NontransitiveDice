@@ -62,7 +62,7 @@ public class SetOfDiceGeneratorTest {
             Die d = new Die( dieFaceValues );
             assertTrue( generatedSetOfDice.contains( d ));
         }
-        assertTrue( "Result has different length than expected result",generatedSetOfDice.size() == expectedDice.length );
+        assertEquals("Result has different length than expected result", generatedSetOfDice.size(), expectedDice.length);
     }
 }
 

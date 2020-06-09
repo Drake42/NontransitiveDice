@@ -19,9 +19,7 @@ public class SetOfDiceGenerator {
         fillSubsequentRowsOfTableWithPossibleFaceValueCombinationsButIgnoreLastColumn(faceValueLow, faceValueHigh, candidateDiceTable);
         fillInLastColumnOfTableSoThatFacesSumTo(faceValueSum, candidateDiceTable);
 
-        Set<Die> result = getSetOfDiceWithoutDuplicates(candidateDiceTable);
-
-        return result;
+        return getSetOfDiceWithoutDuplicates(candidateDiceTable);
     }
 
     private static int computeMaxPossibleCombinationsFor(int numFaces, int faceValueLow, int faceValueHigh) {
@@ -32,8 +30,8 @@ public class SetOfDiceGenerator {
 
     private static Set<Die> getSetOfDiceWithoutDuplicates(int[][] candidateDiceTable) {
         Set<Die> result = new HashSet<>();
-        for(int row=0; row<candidateDiceTable.length; row++) {
-            boolean add = result.add(new Die(candidateDiceTable[row]));
+        for (int[] row : candidateDiceTable) {
+            result.add(new Die(row));
         }
         return result;
     }

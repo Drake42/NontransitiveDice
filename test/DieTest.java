@@ -42,18 +42,18 @@ public class DieTest {
 
         //For any non-null reference value x, x.equals(null) should return false.
         Die x = new Die( new int[] {1, 2, 3} );
-        assertFalse( x.equals(null));
+        assertNotNull( x );
 
         //reflexive: for any non-null reference value x, x.equals(x) should return true.
-        assertTrue( x.equals(x) );
+        assertEquals(x, x);
 
         //symmetric: for any non-null reference values x and y, x.equals(y) should return true if and only if y.equals(x) returns true.
         Die y1 = new Die( new int[] {1, 2, 3} );
-        assertTrue( x.equals(y1) );
+        assertEquals(x, y1);
         Die y2 = new Die( new int[] {3, 2, 1} );
-        assertTrue( x.equals(y2) );
+        assertEquals(x, y2);
         Die y3 = new Die( new int[] {1, 2, 4} );
-        assertFalse( x.equals(y3) );
+        assertNotEquals(x, y3);
 
         /*
         we're deliberately not testing for the required properties of...

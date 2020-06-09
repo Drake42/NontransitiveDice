@@ -1,7 +1,5 @@
-//TODO delete commented thing in following line
-//import org.jetbrains.annotations.NotNull;
-
 import java.util.*;
+
 
 public class SetOfDice {
 
@@ -13,8 +11,7 @@ public class SetOfDice {
         mappings = setupMappingsFromDieToDiceThatBeatIt(this.dice);
     }
 
-    //TODO delete commented thing in following line
-    private Map<Die, Set<Die>> setupMappingsFromDieToDiceThatBeatIt(/*@NotNull*/ Set<Die> diceToMap) {
+    private Map<Die, Set<Die>> setupMappingsFromDieToDiceThatBeatIt(Set<Die> diceToMap) {
         Map<Die, Set<Die>> mappings = new HashMap<>();
 
         for (Die currentDie : diceToMap) {
@@ -27,12 +24,10 @@ public class SetOfDice {
 
     //Currently tested up through 3 players.
     public boolean isSetOfDiceNontransitiveForNumPlayers(int numPlayers) {
-        List<List<Die>> allCombinationsOfNMinusOneDice;
-        allCombinationsOfNMinusOneDice = Combinations.generateCombinationsOf(numPlayers, dice);
+        List<Set<Die>> combinations = Combinations.generateCombinationsOf(numPlayers - 1, dice);
 
-        for (List<Die> combination : allCombinationsOfNMinusOneDice) {
-            Set<Die> chosenDice = new HashSet<>(combination);
-            Set<Die> beatsCurrent = findDiceToBeatAll(chosenDice);
+        for (Set<Die> currentCombination : combinations) {
+            Set<Die> beatsCurrent = findDiceToBeatAll(currentCombination);
             if (beatsCurrent == null || beatsCurrent.size() < 1) {
                 return false;
             }

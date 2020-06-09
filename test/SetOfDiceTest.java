@@ -72,10 +72,6 @@ Goal 2: generate nontransitive die sets, for a given
         So, in step B, we get to create mappings for up to 2925 dice. I'm glad the 27 will actually be smaller!
 
 
-
-
-
-
         TODO: next step...
         solve the immediately above very simple case by hand...
         build physical artifacts showing the resulting set of dice, at each step of A/B/C above.
@@ -200,12 +196,9 @@ public class SetOfDiceTest {
         assertEquals(result.size(), 1);
         assertTrue( result.contains( oskarDiceG ));
 
-//        fail( "Boo!" );
+        fail( "Boo!" );
         //Delete above fail that was put there only to bring you here, then read what's below...
-        // As of 22 May 2020, TODO items exist in these files...
-        //  This one
-        //  SetOfDice.java
-        //  Combinations.java
+        // As of 9 June 2020, TODO items exist only in this file
 
     }
 
