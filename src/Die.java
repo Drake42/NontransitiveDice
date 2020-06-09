@@ -4,7 +4,7 @@ public class Die {
     private List<Integer> faceValues;
 
     public Die(int[] faceValuesArray ) {
-        this.faceValues = new ArrayList<Integer>( faceValuesArray.length );
+        this.faceValues = new ArrayList<>( faceValuesArray.length );
         for (int value : faceValuesArray) {
             this.faceValues.add(value);
         }
@@ -12,7 +12,7 @@ public class Die {
     }
 
     public String toString() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append("Die:[");
         for (int x:faceValues) {
             buf.append(x);

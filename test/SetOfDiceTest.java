@@ -200,7 +200,7 @@ public class SetOfDiceTest {
         assertEquals(result.size(), 1);
         assertTrue( result.contains( oskarDiceG ));
 
-        fail( "Boo!" );
+//        fail( "Boo!" );
         //Delete above fail that was put there only to bring you here, then read what's below...
         // As of 22 May 2020, TODO items exist in these files...
         //  This one
