@@ -50,10 +50,13 @@ Goal 2: generate nontransitive die sets, for a given
 
         //possible Algorithm... for above...
         A. Generate the set of all possible dice for parameters( sides, sum of face values, range of allowed values)
-            A1. In a loop through all possible values for each side, assign every possible combination of face values to 5 sides
-            A2. Compute the value for side 6 needed to make the sum of face values match that specified.
+            DONE - see SetOfDiceGenerator.generateAllPossibleFaceValueCombinationsFor(numFacesPerDie, faceValueSum, faceValueLow, faceValueHigh );
         B. Generate the mappings of which dice beat which other dice
+            This is done by the constructor when we create an instance of SetOfDice
         C. Given those mappings, finding a set non-transitive for N dice is simply a graph traversal problem within the mappings
+
+
+
 
         //because this is a lot of possibilities...
         Hand solve a very simple case like...
@@ -87,6 +90,28 @@ Goal 2: generate nontransitive die sets, for a given
 
 
 public class SetOfDiceTest {
+
+    @Test
+    public void testFindNontransitiveSubsets_forOneDie() {
+        Die y1 = new Die(new int[]{1, 2, 3});
+        Set<Die> setOfOneDie = new HashSet<Die>(1);
+        setOfOneDie.add(y1);
+        SetOfDice setOfDice1 = new SetOfDice(setOfOneDie);
+        List<Set<Die>> attempt1 = setOfDice1.findAllNontransitiveSubsets();
+        assertNull(attempt1);
+    }
+
+    @Test
+    public void testFindNontransitiveSubsets_forThreeDieCycle() {
+        Set<Die> setOfThreeDice = new HashSet<Die>(3);
+        setOfThreeDice.add(new Die( new int[]{0, 0, 0} ));
+        setOfThreeDice.add(new Die( new int[]{1, 1, -2} ));
+        setOfThreeDice.add(new Die( new int[]{-1, -1, 2} ));
+        SetOfDice setOfDice2 = new SetOfDice( setOfThreeDice );
+        List<Set<Die>> attempt2 = setOfDice2.findAllNontransitiveSubsets(); //TODO implement this method so it passes this test
+        Set<Die> expected = setOfThreeDice;
+        assertEquals( expected, attempt2 );
+    }
 
     @Test
     public void testSeveralNontransitiveSimpleSets() {
@@ -195,11 +220,6 @@ public class SetOfDiceTest {
         result = dice.findDiceToBeatAll( alreadyChosenDice);
         assertEquals(result.size(), 1);
         assertTrue( result.contains( oskarDiceG ));
-
-        fail( "Boo!" );
-        //Delete above fail that was put there only to bring you here, then read what's below...
-        // As of 9 June 2020, TODO items exist only in this file
-
     }
 
 }
